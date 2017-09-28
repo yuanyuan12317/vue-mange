@@ -92,7 +92,7 @@
       let that = this;
       this.axios.get('../../static/data.json')
         .then(function (response) {
-          console.log(response)
+          // console.log(response)
           that.gridData = response.data;
       })
     }
