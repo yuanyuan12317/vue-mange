@@ -1,25 +1,33 @@
 <template>
  
-  <el-col  class="slidebar">
+  <el-col  class="slidebar" :class='{"collapse":iscollapse}'>
     <div class="nav_header">
-      <div class="profile_element">
+      <div class="profile_element" v-show='!iscollapse'>
         <img src="http://owner.imydao.com/build/images/banner_logo.png?rev=@@hash">
       </div>
-      <div class="logo_element" v-show='false'>
+      <div class="logo_element" v-show='iscollapse'>
         <img src="http://owner.imydao.com/build/images/logo.png?rev=@@hash">
       </div>
 		</div>
-    <el-menu default-active="defaultActive" class="el-menu-vertical-demo" @select="handleSelect" @open="handleOpen" @close="handleClose"  theme="dark" uniqueOpened router >
-       <el-menu-item-group v-for='(item,i) in menu' :key='i'>
-        <el-submenu :index='item.root.code ? item.root.code : String(i)'  v-if='item.child'>
-            <template slot="title" class='el-menu-item' :index='item.root.code'><i :class='item.root.icon' ></i>{{item.root.name}}</template>
+    <el-menu default-active="defaultActive"  :collapse='iscollapse' class="el-menu-vertical-demo" @select="handleSelect" @open="handleOpen" @close="handleClose"  theme="dark" uniqueOpened router >
+       <template v-for='(item,i) in menu' >
+        <el-submenu :key='i' :index='item.root.code ? item.root.code : String(i)'  v-if='item.child'>
+            <template slot="title" class='el-menu-item' :index='item.root.code'>
+              <i :class='item.root.icon' ></i>
+              <span slot="title">{{item.root.name}}</span>
+            </template>
 
-            <el-menu-item  v-for='(val,index2) in item.child' :key='index2' :index="val.code"><i :class="val.icon"></i>{{val.name}}</el-menu-item>
+            <el-menu-item  v-for='(val,index2) in item.child' :key='index2' :index="val.code"><i :class="val.icon"></i>
+              {{val.name}}
+            </el-menu-item>
 
         </el-submenu>
-        <el-menu-item v-else :index="item.root.code"><i :class="item.root.icon"></i>{{item.root.name}}</el-menu-item>
+        <el-menu-item  :key='i' v-else :index="item.root.code">
+          <i :class="item.root.icon"></i>
+            <span slot="title">{{item.root.name}}</span>
+          </el-menu-item>
 
-       </el-menu-item-group>
+       </template>
       
 
     </el-menu>
@@ -30,6 +38,7 @@
 <script>
 import { getStore } from '../config/util'
   export default {
+    props:['iscollapse'],
     data(){
         return {
             menu:null
@@ -104,7 +113,19 @@ import { getStore } from '../config/util'
   height:100%;
   background-color: #324157;
   float: left;
+    transition: all 0.5s;
 }
+.slidebar.collapse{
+  width:64px;
+  transition: all 0.5s;
+}
+/* .slidebar.collapse .nav_header{
+  height:41px;
+} */
+/* .slidebar.collapse img{
+  width: 30px;
+  height: 30px;
+} */
 
 .nav_header {
     text-align: center;

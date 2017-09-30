@@ -1,11 +1,11 @@
 <template>
   <el-row class="tac">
-      <slide-bar @changenav='changeNavs'></slide-bar>
+      <slide-bar @changenav='changeNavs' :iscollapse='isCollapse'></slide-bar>
       <div  id="page_wrapper">
         <el-row class="row">
             <nav class="navbar_static_top clear">
                 <div class="navbar_header">
-                    <el-button class='fullbtn'><i class="el-icon-fa-bars"></i></el-button>
+                    <el-button class='fullbtn' @click='changeMenuStyle'><i class="el-icon-fa-bars"></i></el-button>
                     <!-- <a class="btn btn-primary fl navbar_minimalize" href="javascript:;" style="background: #2f4050;"><i class="el-icon-fa-bars"></i></a> -->
                     <div class="navbar_title fl">
                         安全生产双重预防管控信息系统
@@ -62,7 +62,8 @@ import headerTop from './headerTop'
                     name:"首页"
                 }
             ],
-            currentNav:0
+            currentNav:0,
+            isCollapse:false
         }
     },
     created() {
@@ -74,6 +75,9 @@ import headerTop from './headerTop'
 
     },
     methods: {
+        changeMenuStyle(){
+            this.isCollapse = !this.isCollapse;
+        },
         changeNavs(item){
             if(this.navsName.indexOf(item.name)>-1){
                 this.currentNav =  this.navsName.indexOf(item.name);

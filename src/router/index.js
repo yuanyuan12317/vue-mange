@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Hello from '@/components/Hello'
 import Dialog from '@/components/Dialog'
 import UE from '@/components/UE2'
+import XMZL from '@/page/JDZL/XMZL'
 
 // import login from '@/page/login'
 // const login = resolve => require(['@/page/login'], resolve) 
@@ -46,7 +47,7 @@ export default new Router({
         {
           path:"/XMZL",
           name:'项目总览',
-          component: resolve => require(['@/components/Hello'],resolve),
+          component:  resolve => require(['@/page/JDZL/XMZL'],resolve),
           meta: ['项目总览']
         },
         {
@@ -58,7 +59,7 @@ export default new Router({
         {
           path:"/WTZL",
           name:'问题总览',
-          component: resolve => require(['@/components/Dialog'],resolve),
+          component: resolve => require(['@/page/JDZL/JSC'],resolve),
           meta: ['问题总览']
         },
         {
